@@ -12,41 +12,71 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.win_lose_frame.hide()
 
 
-        submit_press_count = 0
+        self.submit_press_count = 0
+        self.question_list = self.set_questions()
 
-        # #From home frame to quiz
+        #Home frame buttons
         self.to_quiz_button_home_frame.clicked.connect(lambda : self.home_frame.hide())
-        self.to_home_button_quiz_frame.clicked.connect(lambda : self.home_frame.show())
-
-        self.quiz_submit_button.clicked.connect(lambda : print("submit button pressed!"))
-
-     #hiding frames to be displayed
-        # self.voting_frame.hide()
-        # self.total_votes_frame.hide()
-
-        # #From the home frame, 
-        # # #vote_for_button takes you to voting frame
-        # # #total_votes_button takes you to total votes frame
-        # self.vote_for_button.clicked.connect(lambda : self.display_voting_frame())
-        # self.total_votes_button.clicked.connect(lambda : self.display_total_votes_frame())
-
-
         
-    
-        question_list = self.set_questions()
+        #Quiz frame buttons
+        self.quiz_submit_button.clicked.connect(lambda : self.submit_button())
+        self.to_home_button_quiz_frame.clicked.connect(lambda : self.home_button_quiz_frame())
+
+        #win/lose frame buttons
+        self.to_quiz_button_win_lose_frame.clicked.connect(lambda : self.restart_button_win_lose_frame())
+        self.to_home_button_win_lose_frame.clicked.connect(lambda : self.home_button_win_lose_frame())
 
 
-        print(question_list)
 
 
-    
+    #Win/Lose frame buttons methods
+    def home_button_win_lose_frame(self):
+        self.win_lose_frame.hide()
+        self.home_frame.show()
+        self.restart_game()
+
+    def restart_button_win_lose_frame(self):
+        self.win_lose_frame.hide()
+        self.restart_game()
+        
 
 
 
-    def set_questions(self):
+
+    #Quiz frame button methods
+    def change_to_win_lose_screen(self):
+        self.win_lose_frame.show()
+
+    def home_button_quiz_frame(self):
+        self.restart_game()
+        self.home_frame.show()
+
+
+
+
+    def restart_game(self):
+        '''
+        resets all entries and sets labels back to default
+        
+        :return: None
+        '''
+        self.attempt_counter_label.setText("0/3 attempts")
+        self.submit_press_count = 0
+        self.win_lose_label.setText(" ")
+
+        for question in self.question_list:
+            question.get_text_entry_object().clear()
+            question.get_text_entry_object().setStyleSheet("background-color: white;")
+
+
+
+
+
+    def set_questions(self) -> None:
         '''
         creates questions as Question class, and changes the GUI to the question
         
+
         :return: None
         '''
         q1 = Question(self.q1_hint_label, "Bruce Wayne", self.q1_lineEdit, "batman")
@@ -61,3 +91,83 @@ class Logic(QMainWindow, Ui_MainWindow):
 
 
         return question_list
+    
+
+
+
+    def submit_button(self) -> None:
+        '''
+        
+        
+        :return: None
+        '''
+
+        #counting every submit button press
+        self.submit_press_count += 1
+        self.attempt_counter_label.setText(str(self.submit_press_count) + "/3 Attempts remaining")
+
+
+        self.check_questions()
+        #check questions method
+
+
+        if self.check_quiz_status() == True:
+            print("got all answers correct")
+            self.change_to_win_lose_screen()
+            self.win_lose_label.setText(f"CONGRATS YOU WON!! \nin {self.submit_press_count}/3 attempts")
+            return
+
+        if self.submit_press_count >= 3:
+            print("out of attempts")
+            self.change_to_win_lose_screen()
+            self.win_lose_label.setText(f"out of attempts :(")
+            return
+        
+
+        
+
+
+        
+
+
+
+    def check_questions(self) -> None:
+        '''
+        method checks user input
+        
+        :return: None
+        '''
+        for question in self.question_list:
+            user_answer = question.get_text_entry_object().text()
+            user_answer = user_answer.lower().strip()
+
+            if user_answer != question.get_text_entry_answer():
+                question.set_question_status(False)
+                question.get_text_entry_object().setStyleSheet("background-color: rgb(150, 0, 0);")
+                # print("no Match", question.get_hint_label_object())
+
+            if user_answer == question.get_text_entry_answer():
+                question.set_question_status(True)
+                question.get_text_entry_object().setStyleSheet("background-color: rgb(0, 150, 0);")
+                # print("MATCHHH", question.get_hint_label_object())
+
+
+
+
+    def check_quiz_status(self) -> bool:
+        '''
+        method iterates through each question in questions_list
+
+        :return: False if one question is incorrect, True if all questions are correct
+        '''
+        for question in self.question_list:
+            if question.get_question_status() == False:
+                return False
+            
+        #all of the questions are correct
+        return True
+    
+
+
+
+ 

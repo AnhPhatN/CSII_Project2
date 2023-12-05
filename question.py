@@ -32,6 +32,11 @@ class Question:
 
     def get_question_status(self):
         return self.__isCorrect
+    
+    
+
+    def set_question_status(self, value: bool):
+        self.__isCorrect = value
 
     
 

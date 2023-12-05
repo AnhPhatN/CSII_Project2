@@ -9,12 +9,6 @@ python3 -m PyQt6.uic.pyuic -o gui.py -x Project2GUI.ui
 """
 
 def main():
-    
-
-    
-
-
-
     application = QApplication([])
     window = Logic()
     window.show()
