@@ -97,7 +97,10 @@ class Logic(QMainWindow, Ui_MainWindow):
 
     def submit_button(self) -> None:
         '''
-        
+        Check if all answers are correct or if used all three attempts,, then change to win_lose_frame
+        If all answers were correct, win_lose_frame will show that you won!
+        If all answers were NOT correct, win_lose_frame will show that you lost
+
         
         :return: None
         '''
@@ -133,8 +136,10 @@ class Logic(QMainWindow, Ui_MainWindow):
 
     def check_questions(self) -> None:
         '''
-        method checks user input
-        
+        method checks user input,
+        If user input matches text_entry_answer(from the question class object), then set isCorrect = True and change background green, else isCorrect = False background red
+        *user input is applied with .lower().strip() methods
+
         :return: None
         '''
         for question in self.question_list:

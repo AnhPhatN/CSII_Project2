@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'Project2GUI_save_draft.ui'
+# Form implementation generated from reading ui file 'Project2GUI.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.0
 #
@@ -64,9 +64,6 @@ class Ui_MainWindow(object):
         self.q3_hint_label = QtWidgets.QLabel(parent=self.frame)
         self.q3_hint_label.setGeometry(QtCore.QRect(30, 160, 111, 21))
         self.q3_hint_label.setObjectName("q3_hint_label")
-        self.q3_lineEdit = QtWidgets.QLineEdit(parent=self.frame)
-        self.q3_lineEdit.setGeometry(QtCore.QRect(150, 160, 113, 21))
-        self.q3_lineEdit.setObjectName("q3_lineEdit")
         self.hint_answer_label = QtWidgets.QLabel(parent=self.frame)
         self.hint_answer_label.setGeometry(QtCore.QRect(30, 70, 221, 16))
         self.hint_answer_label.setObjectName("hint_answer_label")
@@ -80,6 +77,9 @@ class Ui_MainWindow(object):
         self.q2_lineEdit = QtWidgets.QLineEdit(parent=self.frame)
         self.q2_lineEdit.setGeometry(QtCore.QRect(150, 130, 113, 21))
         self.q2_lineEdit.setObjectName("q2_lineEdit")
+        self.q3_lineEdit = QtWidgets.QLineEdit(parent=self.frame)
+        self.q3_lineEdit.setGeometry(QtCore.QRect(150, 160, 113, 21))
+        self.q3_lineEdit.setObjectName("q3_lineEdit")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 622, 24))
