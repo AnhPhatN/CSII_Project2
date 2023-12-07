@@ -3,7 +3,7 @@
 
 
 class Question:
-    def __init__(self, hint_label_object, hint_label_str: str, text_entry_object, text_entry_answer: str):
+    def __init__(self, hint_label_object: object, hint_label_str: str, text_entry_object: object, text_entry_answer: str):
         self.__hint_label_object = hint_label_object
         self.__hint_label_str = hint_label_str
         self.__text_entry_object = text_entry_object
@@ -17,25 +17,25 @@ class Question:
     
     
 
-    def get_hint_label_object(self):
+    def get_hint_label_object(self) -> object:
         return self.__hint_label_object
     
-    def get_hint_label_str(self):
+    def get_hint_label_str(self) -> str:
         return self.__hint_label_str
 
-    def get_text_entry_object(self):
+    def get_text_entry_object(self) -> object:
         return self.__text_entry_object
     
-    def get_text_entry_answer(self):
+    def get_text_entry_answer(self) -> str:
         return self.__text_entry_answer
     
 
-    def get_question_status(self):
+    def get_question_status(self) -> bool:
         return self.__isCorrect
     
-    
 
-    def set_question_status(self, value: bool):
+
+    def set_question_status(self, value: bool) -> None:
         self.__isCorrect = value
 
     
