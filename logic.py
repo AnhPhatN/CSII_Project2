@@ -9,14 +9,15 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle('Superhero Quiz')
 
+        self.quiz_frame.hide()
         self.win_lose_frame.hide()
 
-
+        #setting up questions
         self.submit_press_count = 0
         self.question_list = self.set_questions()
 
         #Home frame buttons
-        self.to_quiz_button_home_frame.clicked.connect(lambda : self.home_frame.hide())
+        self.to_quiz_button_home_frame.clicked.connect(lambda : self.start_quiz_button_home_frame())
         
         #Quiz frame buttons
         self.quiz_submit_button.clicked.connect(lambda : self.submit_button())
@@ -27,6 +28,15 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.to_home_button_win_lose_frame.clicked.connect(lambda : self.home_button_win_lose_frame())
 
 
+    #Home frame methods
+    def start_quiz_button_home_frame(self) -> None:
+        '''
+        shows quiz frame, hides home frame
+        home frame -> quiz frame
+        
+        '''
+        self.quiz_frame.show()
+        self.home_frame.hide()
 
     #Win/Lose frame buttons methods
     def home_button_win_lose_frame(self) -> None:
@@ -51,6 +61,7 @@ class Logic(QMainWindow, Ui_MainWindow):
         :return: None
         '''
         self.win_lose_frame.hide()
+        self.quiz_frame.show()
         self.restart_game()
         
 
@@ -58,10 +69,12 @@ class Logic(QMainWindow, Ui_MainWindow):
     #Quiz frame button methods
     def change_to_win_lose_screen(self) -> None:
         '''
-        shows the win/lose frame
+        hides quiz frame, shows the win/lose frame
+        quiz frame -> win/lose frame
         
         :return: None
         '''
+        self.quiz_frame.hide()
         self.win_lose_frame.show()
 
 
@@ -75,6 +88,7 @@ class Logic(QMainWindow, Ui_MainWindow):
         :return: None
         '''
         self.restart_game()
+        self.quiz_frame.hide()
         self.home_frame.show()
 
 
@@ -134,13 +148,13 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.check_questions()
 
         if self.check_quiz_status() == True:
-            print("got all answers correct")
+            # print("got all answers correct")
             self.change_to_win_lose_screen()
             self.win_lose_label.setText(f"CONGRATS YOU WON!! \nin {self.submit_press_count}/3 attempts")
             return
 
         if self.submit_press_count >= 3:
-            print("out of attempts")
+            # print("out of attempts")
             self.change_to_win_lose_screen()
             self.win_lose_label.setText(f"out of attempts :(")
             return
